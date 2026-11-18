@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bowling Speed Gun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo" aria-hidden="true"></div>
+    <div>
+      <h1>Bowling Speed Gun</h1>
+      <p class="sub">Film a delivery, mark two frames, get the speed.</p>
+    </div>
+  </header>
+
+  <!-- STEP 1 -->
+  <section class="card">
+    <h2><span class="step">1</span> Pitch setup</h2>
+    <div class="row">
+      <div>
+        <label for="preset">What are you timing?</label>
+        <select id="preset"></select>
+      </div>
+      <div>
+        <label for="dist">Distance (metres)</label>
+        <input id="dist" type="number" step="0.01" min="1" value="18.90" inputmode="decimal">
+      </div>
+    </div>
+    <p class="hint">Backyard or indoor pitch? Pace out the distance from where the ball leaves the hand to where you'll mark it arriving and type it in.</p>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="card">
+    <h2><span class="step">2</span> Get a video</h2>
+    <div class="btns">
+      <label class="btn primary" for="rec">🎥 Record a delivery</label>
+      <label class="btn" for="pick">📁 Choose a video</label>
+    </div>
+    <input id="rec" type="file" accept="video/*" capture="environment">
+    <input id="pick" type="file" accept="video/*">
+    <p class="hint">On a phone, <b>Record</b> opens your camera app. Use <b>Slo-mo</b> mode if your phone has it (120 or 240 fps is far more accurate than 30 fps).</p>
+    <div class="howto">
+      <figure>
+        <svg viewBox="0 0 320 210" role="img" aria-label="Overhead view: the phone stands side-on to the pitch, level with the middle, about 15 metres back, so both sets of stumps are in shot.">
+          <text class="tb" x="10" y="16">Best: side-on (from above)</text>
+          <!-- field of view -->
+          <path d="M160 178 L22 66 L298 66 Z" fill="#c8f169" fill-opacity=".10" stroke="#c8f169" stroke-opacity=".5" stroke-dasharray="4 3"/>
+          <!-- pitch -->
+          <rect x="40" y="44" width="240" height="22" rx="2" fill="#c9b38a" fill-opacity=".85"/>
+          <line x1="58" y1="44" x2="58" y2="66" stroke="#fff" stroke-opacity=".7"/>
+          <line x1="262" y1="44" x2="262" y2="66" stroke="#fff" stroke-opacity=".7"/>
+          <g fill="#eef4ef"><rect x="47" y="50" width="3" height="10"/><rect x="270" y="50" width="3" height="10"/></g>
+          <!-- bowler and batter -->
+          <circle cx="66" cy="38" r="6" fill="#ff6b5a"/><text class="t" x="44" y="30">Bowler</text>
+          <circle cx="282" cy="38" r="6" fill="#9db3a5"/><text class="t" x="262" y="30">Batter</text>
+          <!-- ball path -->
+          <path d="M72 55 L262 55" stroke="#ff6b5a" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff6b5a"/></marker></defs>
+          <!-- distance marker -->
+          <line x1="160" y1="70" x2="160" y2="170" stroke="#9db3a5" stroke-dasharray="2 3"/>
+          <text class="t" x="166" y="122">~15 m back</text>
+          <!-- phone -->
+          <rect x="146" y="172" width="28" height="14" rx="3" fill="#13200f" stroke="#c8f169" stroke-width="2"/>
+          <circle cx="160" cy="174" r="1.6" fill="#c8f169"/>
+          <text class="tb" x="160" y="203" text-anchor="middle">📱 Phone, held still, landscape</text>
+        </svg>
+        <figcaption><b>Side-on, level with the middle of the pitch.</b> Stand far enough back that both sets of stumps fit in the frame. Don't film from behind the bowler or the batter.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 320 210" role="img" aria-label="What the phone screen should show: the bowler on one side, the batter on the other, the whole ball path across the middle.">
+          <text class="tb" x="10" y="16">What your screen should show</text>
+          <!-- phone frame -->
+          <rect x="14" y="28" width="292" height="150" rx="16" fill="#0c1410" stroke="#9db3a5" stroke-width="2"/>
+          <rect x="30" y="38" width="260" height="130" rx="4" fill="#8fb7d8" fill-opacity=".35"/>
+          <rect x="30" y="110" width="260" height="58" fill="#4f8a3a" fill-opacity=".7"/>
+          <rect x="40" y="128" width="240" height="14" fill="#c9b38a" fill-opacity=".9"/>
+          <!-- bowler -->
+          <circle cx="62" cy="70" r="6" fill="#eef4ef"/>
+          <path d="M62 76 L62 108 M62 108 L54 128 M62 108 L70 128 M62 82 L74 64" stroke="#eef4ef" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- stumps -->
+          <g stroke="#eef4ef" stroke-width="2"><line x1="262" y1="114" x2="262" y2="134"/><line x1="266" y1="114" x2="266" y2="134"/></g>
+          <!-- batter -->
+          <circle cx="278" cy="78" r="6" fill="#eef4ef"/>
+          <path d="M278 84 L278 112 M278 112 L274 132 M278 112 L284 132 M278 92 L268 104" stroke="#eef4ef" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- ball path with bounce -->
+          <path d="M76 62 Q170 64 222 134 Q240 116 262 112" stroke="#ff6b5a" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+          <circle cx="76" cy="62" r="4" fill="#ff6b5a"/>
+          <!-- tap points -->
+          <circle cx="76" cy="62" r="9" fill="none" stroke="#c8f169" stroke-width="2"/>
+          <rect x="80" y="44" width="58" height="15" rx="3" fill="#c8f169"/><text class="ta" x="85" y="55">① Release</text>
+          <circle cx="264" cy="134" r="9" fill="none" stroke="#c8f169" stroke-width="2"/>
+          <rect x="196" y="146" width="58" height="15" rx="3" fill="#c8f169"/><text class="ta" x="201" y="157">② Stumps</text>
+          <text class="t" x="160" y="200" text-anchor="middle">Whole ball path in shot · no zoom · no panning</text>
+        </svg>
+        <figcaption><b>Both ends in frame, ball path across the screen.</b> These are the two points you'll tap for auto-detect: where the ball leaves the hand, and the base of the batter's stumps.</figcaption>
+      </figure>
+      <figure class="wide">
+        <svg viewBox="0 0 320 236" role="img" aria-label="Umpire view: the phone stands behind the bowler's stumps looking straight down the pitch. On screen the bowler is close and the batter is small in the distance.">
+          <text class="tb" x="10" y="16">Also works: umpire view</text>
+          <!-- overhead -->
+          <text class="t" x="18" y="34">From above</text>
+          <path d="M70 196 L28 52 L112 52 Z" fill="#c8f169" fill-opacity=".10" stroke="#c8f169" stroke-opacity=".5" stroke-dasharray="4 3"/>
+          <rect x="59" y="46" width="22" height="140" rx="2" fill="#c9b38a" fill-opacity=".85"/>
+          <g fill="#eef4ef"><rect x="65" y="52" width="10" height="3"/><rect x="65" y="176" width="10" height="3"/></g>
+          <circle cx="70" cy="44" r="6" fill="#9db3a5"/><text class="t" x="80" y="47">Batter</text>
+          <circle cx="76" cy="168" r="6" fill="#ff6b5a"/><text class="t" x="86" y="171">Bowler</text>
+          <path d="M74 160 L70 62" stroke="#ff6b5a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+          <rect x="56" y="196" width="28" height="14" rx="3" fill="#13200f" stroke="#c8f169" stroke-width="2"/>
+          <circle cx="70" cy="198" r="1.6" fill="#c8f169"/>
+          <text class="t" x="70" y="226" text-anchor="middle">Behind bowler's stumps</text>
+          <!-- screen view -->
+          <rect x="146" y="40" width="170" height="140" rx="14" fill="#0c1410" stroke="#9db3a5" stroke-width="2"/>
+          <rect x="156" y="50" width="150" height="120" rx="3" fill="#8fb7d8" fill-opacity=".35"/>
+          <rect x="156" y="100" width="150" height="70" fill="#4f8a3a" fill-opacity=".7"/>
+          <path d="M254 100 L266 100 L300 170 L222 170 Z" fill="#c9b38a" fill-opacity=".9"/>
+          <!-- batter: small, far away, clearly visible -->
+          <g stroke="#eef4ef" stroke-width="1.5"><line x1="258" y1="92" x2="258" y2="101"/><line x1="261" y1="92" x2="261" y2="101"/></g>
+          <circle cx="268" cy="82" r="3" fill="#eef4ef"/>
+          <path d="M268 85 L268 95 M268 95 L266 102 M268 95 L270 102 M268 88 L263 93" stroke="#eef4ef" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <!-- bowler from behind, close and off to the left -->
+          <circle cx="186" cy="112" r="9" fill="#eef4ef"/>
+          <path d="M186 121 L186 150 M186 150 L178 170 M186 150 L194 170 M187 126 L204 92" stroke="#eef4ef" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <!-- ball path: out of the hand, down to the pitch, up into the batter -->
+          <path d="M206 88 Q236 92 258 108 Q262 100 266 96" stroke="#ff6b5a" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
+          <circle cx="206" cy="88" r="3.5" fill="#ff6b5a"/>
+          <circle cx="206" cy="88" r="8" fill="none" stroke="#c8f169" stroke-width="2"/>
+          <rect x="160" y="58" width="58" height="15" rx="3" fill="#c8f169"/><text class="ta" x="164" y="69">① Release</text>
+          <circle cx="266" cy="96" r="7" fill="none" stroke="#c8f169" stroke-width="2"/>
+          <rect x="248" y="58" width="54" height="15" rx="3" fill="#c8f169"/><text class="ta" x="252" y="69">② Batter</text>
+          <text class="t" x="231" y="198" text-anchor="middle">Batter in shot, bowler off to</text>
+          <text class="t" x="231" y="212" text-anchor="middle">one side so the ball stays visible</text>
+        </svg>
+        <figcaption><b>Less precise, but handy for nets or TV replays.</b> Stand a little to one side of the bowler's stumps so their body doesn't hide the ball. Pick "Umpire view" in auto-detect, tap the ball at release and where it reaches the batter, and set step 1 to release → batter's crease (17.68 m).</figcaption>
+      </figure>
+    </div>
+    <details style="margin-top:10px">
+      <summary>More filming tips</summary>
+      <ul>
+        <li>Film <b>side-on</b>, about level with the middle of the pitch, so you can see the bowler's hand <i>and</i> the batter's end in the same shot.</li>
+        <li>Keep the phone still: lean it on something or use a tripod. Don't zoom or pan.</li>
+        <li>Plenty of light means a sharper ball and less blur.</li>
+        <li>Mark the arrival at the same spot your distance measures to (the stumps or the crease).</li>
+        <li><b>Umpire view</b> (filming from behind the bowler's stumps) works too: pick "Umpire view" in auto-detect, or mark the frames by hand. It's less precise than side-on, because the ball comes almost straight at the camera, so use slo-mo and keep the batter in shot.</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="card hidden" id="playerCard">
+    <h2><span class="step">3</span> Find the ball</h2>
+    <div class="stage" id="stage"><video id="vid" playsinline muted preload="auto"></video><canvas id="ov"></canvas></div>
+    <input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Scrub video">
+    <div class="timebar"><span id="tNow">0.000 s</span><span id="fpsInfo" class="pill">fps: detecting…</span><span id="tDur">0.000 s</span></div>
+    <div class="row3" style="margin-top:10px">
+      <button id="back10" title="Back 10 frames">« 10</button>
+      <button id="back1" title="Back 1 frame">‹ 1 frame</button>
+      <button id="fwd1" title="Forward 1 frame">1 frame ›</button>
+      <button id="fwd10" title="Forward 10 frames">10 »</button>
+    </div>
+    <div class="btns" style="margin-top:8px">
+      <button id="playSlow" class="ghost">▶ Play ¼ speed</button>
+      <button id="playNorm" class="ghost">▶ Play normal</button>
+    </div>
+    <div class="auto" id="autoBox">
+      <h3>🎯 Auto-detect <span class="badge">new</span></h3>
+      <div class="tabs" id="viewTabs" style="margin:8px 0 4px">
+        <button data-view="side" class="on">Filmed side-on</button>
+        <button data-view="umpire">Umpire view</button>
+      </div>
+      <p class="hint" id="autoHint" style="margin-top:2px"></p>
+      <div class="btns" style="margin-top:10px">
+        <button id="tapBtn">📍 Tap the 2 points</button>
+        <button id="findBtn" class="primary" disabled>🔍 Find the ball</button>
+      </div>
+      <button id="replayBtn" class="hidden" style="width:100%;margin-top:8px">▶ Replay with tracking</button>
+      <div class="prog hidden" id="prog"><i id="progBar"></i></div>
+      <p class="amsg" id="amsg"></p>
+    </div>
+    <p class="or">or mark the frames by hand</p>
+    <div class="marks" style="margin-top:6px">
+      <div class="mark" id="m1">
+        <small class="sub">Release</small>
+        <b id="m1t">—</b>
+        <button id="mark1" class="primary">Ball leaves hand</button>
+      </div>
+      <div class="mark" id="m2">
+        <small class="sub">Arrival</small>
+        <b id="m2t">—</b>
+        <button id="mark2" class="primary">Ball reaches batter</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div>
+        <label for="fps">Video frame rate</label>
+        <select id="fps"></select>
+      </div>
+      <div>
+        <label for="slow">Video is slowed down by</label>
+        <select id="slow">
+          <option value="1">Not slowed (normal)</option>
+          <option value="2">2×</option>
+          <option value="4">4×</option>
+          <option value="8">8×</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint">Only change "slowed down by" if the clip has been exported as a slow-motion video (it plays slowly at normal speed). If a slo-mo clip plays at full speed here, leave it on "Not slowed".</p>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="card hidden" id="resultCard">
+    <h2><span class="step">4</span> Speed</h2>
+    <div class="speed">
+      <span class="big" id="kmh">—</span><span class="unit">km/h</span>
+      <div class="sub" id="mph">— mph</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><small>Flight time</small><span id="dt">—</span></div>
+      <div class="stat"><small id="rangeLbl">Accuracy (±1 frame)</small><span id="range">—</span></div>
+      <div class="stat"><small id="gunLbl">Approx. speed-gun reading*</small><span id="gun">—</span></div>
+    </div>
+    <div id="warn" class="warn hidden"></div>
+    <p class="hint">*The big number is the ball's <b>average</b> speed down the pitch. TV speed guns measure it just out of the hand, before it slows off the bounce and through the air, so they usually read about 10% higher. By hand, the speed-gun figure is that rough adjustment. With auto-detect, it's the ball's measured speed over the first part of its flight, which is what a speed gun reads.</p>
+
+    <div id="saveBox" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+      <label for="bowler">Bowler's name</label>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+        <input id="bowler" type="text" maxlength="40" placeholder="e.g. Jono">
+        <button id="saveBtn" class="primary">Save to leaderboard</button>
+      </div>
+      <span id="saveMsg" class="saved"></span>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="card" id="boardCard">
+    <h2>🏆 Leaderboard</h2>
+    <div class="tabs">
+      <button id="tabTop" class="on">Fastest</button>
+      <button id="tabRecent">Recent</button>
+    </div>
+    <div id="boardMsg" class="hint">Loading…</div>
+    <table id="board" class="hidden">
+      <thead><tr><th class="rank">#</th><th>Bowler</th><th class="n">km/h</th><th class="n">When</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
